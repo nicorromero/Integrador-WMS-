@@ -12,6 +12,7 @@ import java.util.List;
  * @author nicor
  */
 public class Producto {
+    private static  int contadorIds =1;
     private int codigoUnico;
     private String descripcion;
     private String unidadMedida; // Por ejemplo: "unidades", "kg", "litros"
@@ -21,7 +22,8 @@ public class Producto {
 
     
     //contructor: 
-    public Producto(int codigoUnico, String descripcion, String unidadMedida, double pesoPorUnidad) {
+    public Producto( String descripcion, String unidadMedida, double pesoPorUnidad) {
+        this.codigoUnico = contadorIds++;
         this.descripcion = descripcion;
         this.unidadMedida = unidadMedida;
         this.pesoPorUnidad = pesoPorUnidad;   

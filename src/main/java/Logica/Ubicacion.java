@@ -12,6 +12,7 @@ import java.util.Map;
  * @author nicor
  */
 public class Ubicacion {
+    private static int contadorIds = 1;
     private int codigoUnico;
     private String nave;
     private TipoZona zona;
@@ -21,8 +22,10 @@ public class Ubicacion {
     private Map <Producto, Integer> stockPorProducto;// Usamos un Mapa para relacionar cada Producto con su cantidad (stock) en esta ubicación.
     private static final double CAPACIDAD_MAXIMA_KG = 1250.0; // Constante para la capacidad. 'final' significa que no puede cambiar.
    
+   
     //contructor:
-    public Ubicacion(int codigoUnico, String nave, TipoZona zona, String estanteria, String nivel) {
+    public Ubicacion( String nave, TipoZona zona, String estanteria, String nivel) {
+        this.codigoUnico = contadorIds++;
         this.nave = nave;
         this.zona = zona;
         this.estanteria = estanteria;

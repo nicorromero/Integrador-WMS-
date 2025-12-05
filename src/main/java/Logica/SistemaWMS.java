@@ -22,15 +22,15 @@ public class SistemaWMS {
     // Método privado para mantener el constructor limpio
     private void inicializarDatosDePrueba() {
         // Ejemplo: Añadir una ubicación inicial
-        Ubicacion u1 = new Ubicacion(contadorUbicaciones++, "naveA", TipoZona.ALMACENAMIENTO, "E01", "N01");
+        Ubicacion u1 = new Ubicacion( "naveA", TipoZona.ALMACENAMIENTO, "E01", "N01");
         ubicaciones.add(u1);
         
-        Ubicacion u2 = new Ubicacion(contadorUbicaciones++, "naveA", TipoZona.ALMACENAMIENTO, "E01", "N02");
+        Ubicacion u2 = new Ubicacion( "naveA", TipoZona.ALMACENAMIENTO, "E01", "N02");
         ubicaciones.add(u2);
         
         
         // Ejemplo: Añadir un producto inicial
-        Producto p1 = new Producto(contadorProductos++, "zapatilas", "Litro", 1.0);
+        Producto p1 = new Producto("zapatilas", "Litro", 1.0);
         productos.add(p1);
     }
     
@@ -40,9 +40,8 @@ public class SistemaWMS {
     private final List<Ubicacion> ubicaciones = new ArrayList<>();
     private final List<Orden> Ordenes = new ArrayList<>();
     //contador para IDs
-    private int contadorOrdenes = 1;
-    private int contadorProductos = 1;
-    private int contadorUbicaciones =1;
+ 
+    
 
     
     public List<Producto> getProductos() {
@@ -57,18 +56,10 @@ public class SistemaWMS {
         return Ordenes;
     }
 
-    public int getContadorOrdenes() {
-        return contadorOrdenes;
-    }
 
-    public int getContadorProductos() {
-        return contadorProductos;
-    }
-
-    public int getContadorUbicaciones() {
-        return contadorUbicaciones;
-    }
     
+
+
     //Para leer los txt del frame y tranformar a objeto
     public Producto buscarProductoPorDescripcion(String txtProducto){
         for (Producto p : productos){
@@ -106,7 +97,7 @@ public class SistemaWMS {
     public TipoZona buscarTipoZona (String descripcionZona){
         for (TipoZona zona : TipoZona.values()) 
         {
-            if(zona.getDescripcion().equalsIgnoreCase(descripcionZona))
+            if(zona.getDescripcion().equalsIgnoreCase(descripcionZona)|| zona.name().equalsIgnoreCase(descripcionZona))
             {
                 return zona;
             }
@@ -133,6 +124,7 @@ public class SistemaWMS {
                                            //marca rojo el null por parecer rebundante pero NO lo es
         //convierte el string en producto
         Producto productoEncontrado = buscarProductoPorDescripcion(descripcionProducto);
+        
         //validacion
         if (productoEncontrado == null) {
         throw new IllegalArgumentException("El producto con descripción '" + descripcionProducto + "' no existe en el sistema.");
@@ -140,21 +132,21 @@ public class SistemaWMS {
         
         //convierte el string en ubicacion
         Ubicacion ubicacionEncontrada = buscarUbicacionPorCodigo(uOrigen);
+        
         //validacion
         if (ubicacionEncontrada == null) {
         throw new IllegalArgumentException("La Ubicacion con descripción '" + uOrigen + "' no existe en el sistema.");
         }
         
         //convertir el string de TipoOrden en objeto 
+        //validacion
         TipoOrden tipoEncontrado = buscarTipoOrden(tipoOrden);
         if(tipoEncontrado == null) {
             throw new IllegalArgumentException("el tipo orden: " + tipoOrden + "' no existe en el sistema.");       
         }
-        
-        int nuevoNumOrden = contadorOrdenes++; 
-        
+           
         //validacion y manejo de null para la segunda ubicacion 
-        if (tipoEncontrado == TipoOrden.INTERNO) 
+        if (tipoEncontrado == TipoOrden.INTERNO ) 
         {
             //convierte el string en ubicacion
             ubicacionDestino = buscarUbicacionPorCodigo(uDestino);
@@ -167,68 +159,33 @@ public class SistemaWMS {
             {
             throw new IllegalArgumentException("El origen y el destino no pueden ser la misma ubicación para una transferencia interna.");
             }
-                    
+        }          
             try {  //como un if que siempre da true 
                 Orden nuevaOrden = new Orden(
-                    nuevoNumOrden, 
                     usuario, 
                     productoEncontrado, 
-                    cantidad, 
+                    cantidad,
                     ubicacionEncontrada, 
                     tipoEncontrado, 
                     ubicacionDestino 
-                );
-                
+                );  
                 Ordenes.add(nuevaOrden);
-                return nuevaOrden;
-                
+                return nuevaOrden;    
             } 
-            catch (IllegalArgumentException e) 
-            {   //como el else, se activa en false
-                contadorOrdenes--; //descuenta el id en caso de false 
-                throw e; //muestra del error, podria dejar mensaje
-            }        
-        } 
-        
-        if(tipoEncontrado == TipoOrden.EGRESO || tipoEncontrado == TipoOrden.INTERNO){
-               
-            
-                try {  
-                    //como un if que siempre da true 
-                    Orden nuevaOrden = new Orden(
-                    nuevoNumOrden, 
-                    usuario, 
-                    productoEncontrado, 
-                    cantidad, 
-                    ubicacionEncontrada, 
-                    tipoEncontrado, 
-                    ubicacionDestino // Si es INGRESO/EGRESO, uDestino será null, lo cual está bien si el constructor lo maneja.
-                    );
-            
-                    Ordenes.add(nuevaOrden);
-                    return nuevaOrden;
-                } 
-                catch (IllegalArgumentException e){
-                 
-                    //como el else, se activa en false
-                    contadorOrdenes--; //descuenta el id en caso de false 
-                    throw e; //muestra del error, podria dejar mensaje
-                }
-        }
-        
-        return null;
-        
+            catch (IllegalArgumentException e) {   
+                throw e; 
+            }            
     }
     
     public Producto crearNuevoProducto( String descripcion, String unidadMedida, double pesoPorUnidad) {
         
-        // generador automatico de id para orden
-        int nuevoIdProducto = contadorProductos++; 
+ 
+      
 
         // 2. Llamar al constructor de la Orden
         try {  //como un if que siempre da true 
             Producto nuevoProducto = new Producto(
-                nuevoIdProducto,  
+           
                 descripcion, 
                 unidadMedida, 
                 pesoPorUnidad
@@ -239,8 +196,7 @@ public class SistemaWMS {
             return nuevoProducto;    
         } 
         catch (IllegalArgumentException e) { 
-            //como el else, se activa en false
-            contadorProductos--; //descuenta el id en caso de false 
+            
             throw e; //muestra del error, podria dejar mensaje
         }
              
@@ -250,7 +206,7 @@ public class SistemaWMS {
     public Ubicacion crearNuevaUbicacion( String nave, String zona, String estanteria, String nivel) {
         
         // generador automatico de id para orden
-        int nuevoIdUbicacion = contadorUbicaciones++; 
+       
         
         
         TipoZona tipoEncontradoZona = buscarTipoZona(zona);
@@ -263,8 +219,8 @@ public class SistemaWMS {
 
         // 2. Llamar al constructor de la Orden
         try {  //como un if que siempre da true 
-                Ubicacion nuevoUbicacion = new Ubicacion(
-                nuevoIdUbicacion,    
+                Ubicacion nuevoUbicacion = new Ubicacion(  
+                   
                 nave,  
                 tipoEncontradoZona, 
                 estanteria, 
@@ -276,7 +232,6 @@ public class SistemaWMS {
                 return nuevoUbicacion;
         } 
         catch (IllegalArgumentException e) { //como el else, se activa en false
-            contadorUbicaciones--; //descuenta el id en caso de false 
             throw e; //muestra del error, podria dejar mensaje
         }
     }

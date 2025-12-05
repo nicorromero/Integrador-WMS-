@@ -12,7 +12,8 @@ import java.util.Date;
  */
 
 public class Orden {
-    private int numeroOrden;
+    private static int contadorIds = 1;
+    private int codigoUnico;
     private String usuarioResponsable;
     private Date fecha;
     private Producto producto;
@@ -22,13 +23,14 @@ public class Orden {
     private Ubicacion ubicacionDestino= null;
 
     //contructor:
-    public Orden(int numeroOrden, String usuarioResponsable, Producto producto, int cantidad, Ubicacion ubicacionOrigen, TipoOrden tipo, Ubicacion ubicacionDestino){
+    public Orden(String usuarioResponsable, Producto producto, int cantidad, Ubicacion ubicacionOrigen, TipoOrden tipo, Ubicacion ubicacionDestino){
+    this.codigoUnico = contadorIds++;
     this.usuarioResponsable = usuarioResponsable;
+    this.fecha = new Date();
     this.producto = producto;
     this.cantidad = cantidad;
     this.ubicacionOrigen = ubicacionOrigen;
     this.tipo = tipo;
-    this.fecha = new Date();
     this.ubicacionDestino = ubicacionDestino;
         
        
@@ -68,11 +70,15 @@ public class Orden {
         
     } //aca termina el constructor
     
-
     
+
+    public int getCodigoUnico() {
+        return codigoUnico;
+    }
+
     //getters:
-    public int getNumeroOrden() {
-        return numeroOrden;
+    public Ubicacion getUbicacionDestino() {
+        return ubicacionDestino;
     }
 
     public String getUsuarioResponsable() {
