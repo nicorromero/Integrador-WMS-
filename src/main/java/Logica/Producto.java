@@ -45,4 +45,6 @@ public class Producto {
     public double getPesoPorUnidad() {
         return pesoPorUnidad;
     }   
+    
+ 
 }

@@ -20,18 +20,35 @@ public class SistemaWMS {
     }
     
     // Método privado para mantener el constructor limpio
+    // Método privado para mantener el constructor limpio
     private void inicializarDatosDePrueba() {
-        // Ejemplo: Añadir una ubicación inicial
-        Ubicacion u1 = new Ubicacion( "naveA", TipoZona.ALMACENAMIENTO, "E01", "N01");
+        // 1. Crear Ubicaciones
+        // ID 1: Ubicación con stock
+        Ubicacion u1 = new Ubicacion("Nave A", TipoZona.ALMACENAMIENTO, "E01", "N01");
         ubicaciones.add(u1);
         
-        Ubicacion u2 = new Ubicacion( "naveA", TipoZona.ALMACENAMIENTO, "E01", "N02");
+        // ID 2: Ubicación vacía (para probar movimientos o errores)
+        Ubicacion u2 = new Ubicacion("Nave B", TipoZona.ALMACENAMIENTO, "E02", "N01");
         ubicaciones.add(u2);
         
         
-        // Ejemplo: Añadir un producto inicial
-        Producto p1 = new Producto("zapatilas", "Litro", 1.0);
+        // 2. Crear Productos
+        // ID 1: Producto corregido
+        Producto p1 = new Producto("Zapatillas Nike", "Par", 0.8); // 0.8 kg por par
         productos.add(p1);
+        
+        // ID 2: Otro producto
+        Producto p2 = new Producto("Casco Seguridad", "Unidad", 0.5);
+        productos.add(p2);
+
+
+        // 3. CARGAR STOCK INICIAL AUTOMÁTICO
+        // Esto es clave: Cargamos 100 pares de zapatillas en la ubicación u1 (ID 1).
+        // Ahora puedes abrir el programa y probar un EGRESO de "Zapatillas Nike" desde la ubicación 1 directamente.
+        u1.agregarStock(p1, 100); 
+        
+        // También cargamos 10 cascos en la ubicación u1
+        u1.agregarStock(p2, 10);
     }
     
     
