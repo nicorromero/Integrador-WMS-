@@ -22,9 +22,9 @@ public class IntegradorFinal {
 
         
         
-        // Crea la ventana, pasándole la instancia del SistemaWMS con los datos cargados.
-        PantallaInicio pantalla = new PantallaInicio(sistema);
-        pantalla.setVisible(true);
-        pantalla.setLocationRelativeTo(null); // Centra la ventana
+    PantallaInicio pantalla = new PantallaInicio(sistema);
+    pantalla.pack(); // Asegura que la ventana tenga el tamaño correcto antes de moverse
+    pantalla.setLocationRelativeTo(null); // PRIMERO la centras (mientras es invisible)
+    pantalla.setVisible(true);            // LUEGO la muestras (ya centrada)
     }
 }

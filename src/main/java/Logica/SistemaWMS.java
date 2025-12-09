@@ -20,7 +20,6 @@ public class SistemaWMS {
     }
     
     // Método privado para mantener el constructor limpio
-    // Método privado para mantener el constructor limpio
     private void inicializarDatosDePrueba() {
         // 1. Crear Ubicaciones
         // ID 1: Ubicación con stock
