@@ -1,0 +1,43 @@
+@options
+@packages
+-encoding
+'UTF-8'
+-protected
+--release
+23
+-sourcepath
+'C:/Users/nicor/OneDrive/Escritorio/Documentos/NetBeansProjects/IntegradorFinal/src/main/java;C:/Users/nicor/OneDrive/Escritorio/Documentos/NetBeansProjects/IntegradorFinal/target/generated-sources/annotations'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/nicor/OneDrive/Escritorio/Documentos/NetBeansProjects/IntegradorFinal/target/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'IntegradorFinal 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'IntegradorFinal 1.0-SNAPSHOT API'
+IGU
+Logica
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java = 1762035019733
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\generated-sources\annotations = 1764964994847
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\allclasses-index.html = 1765500958069
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\allpackages-index.html = 1765500958253
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\element-list = 1765500957206
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\help-doc.html = 1765500958466
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\index-all.html = 1765500958451
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\index.html = 1765500957864
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\member-search-index.js = 1765500958294
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\module-search-index.js = 1765500958285
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\overview-summary.html = 1765500958460
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\overview-tree.html = 1765500957840
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\package-search-index.js = 1765500958288
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\search.html = 1765500958456
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\serialized-form.html = 1765500957727
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\tag-search-index.js = 1765500958318
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\type-search-index.js = 1765500958290

@@ -19,7 +19,7 @@ public class SistemaWMS {
         this.inicializarDatosDePrueba(); 
     }
     
-    // Método privado para mantener el constructor limpio
+    //metodo privado, y no punlico recomendado por la ia 
     private void inicializarDatosDePrueba() {
         // 1. Crear Ubicaciones
         // ID 1: Ubicación con stock
@@ -77,6 +77,7 @@ public class SistemaWMS {
 
 
     //Para leer los txt del frame y tranformar a objeto
+    
     public Producto buscarProductoPorDescripcion(String txtProducto){
         for (Producto p : productos){
             if(p.getDescripcion().equalsIgnoreCase(txtProducto.trim()))
@@ -87,7 +88,6 @@ public class SistemaWMS {
                 return null;
     }
     
-    //Para leer los txt del frame y tranformar a objeto
     public Ubicacion buscarUbicacionPorCodigo(int codigo){
         
         for (Ubicacion u : ubicaciones){
@@ -133,7 +133,7 @@ public class SistemaWMS {
      * @return La Orden creada o lanza una excepción.
      */
     
-    //recibe solo tipo de datos simples para trabajarlos en el package logica
+    //metodos que maneja el lado cliente
     public Orden crearNuevaOrden(String descripcionProducto, int cantidad, String usuario, int uOrigen, String tipoOrden, int uDestino) {
         
         Ubicacion ubicacionDestino = null; // Inicializada a null por defecto
@@ -251,4 +251,13 @@ public class SistemaWMS {
             throw e; //muestra del error, podria dejar mensaje
         }
     }
+    
+    public String consultarUbicacionStock(int ubicacion){
+        
+        Ubicacion ubicacionStock = buscarUbicacionPorCodigo(ubicacion);
+               
+        return ubicacionStock.obtenerDetalleStock();
+    }
+    
+    
 }

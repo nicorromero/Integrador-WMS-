@@ -113,7 +113,8 @@ public class Ubicacion {
         }
     }     
     
-    //metodo para contar el stock de un producto en una ubicacion
+    //metodo para contar el stock de un producto en una ubicacio
+    //este cpz no se usa
      public int StockporProducto(Producto producto) {
         
         int stock = stockPorProducto.getOrDefault(producto, 0);
@@ -122,6 +123,7 @@ public class Ubicacion {
     }
      
     //metodo para ver los productos y cantidades de una ubicacion
+     //por consola sirve parta testear
      public void mostrarStockUbicacion() {
         if (!stockPorProducto.isEmpty()) {
             for (Map.Entry<Producto, Integer> entry : stockPorProducto.entrySet()) {
@@ -131,5 +133,32 @@ public class Ubicacion {
             System.out.println("Ubicación vacía ");
             
         }
+    }
+     
+     // En Logica/Ubicacion.java
+
+    // Cambiamos void por String para que devuelva el texto
+    public String obtenerDetalleStock() {
+    // Si el mapa está vacío, devolvemos un mensaje simple
+    if (stockPorProducto.isEmpty()) {
+        return "La ubicación está vacía.";
+    }
+    
+    // StringBuilder es eficiente para unir muchas líneas de texto
+    StringBuilder reporte = new StringBuilder();
+    
+    reporte.append("Stock en Ubicación (").append(this.getIdentificador()).append("):\n");
+    
+    for (Map.Entry<Producto, Integer> entry : stockPorProducto.entrySet()) {
+        reporte.append(" - ")
+               .append(entry.getKey().getDescripcion())
+               .append(": ")
+               .append(entry.getValue())
+               .append(" unidades\n"); // \n hace un salto de línea
+    }
+    
+    reporte.append("Peso actual: ").append(this.pesoActualKg).append(" Kg");
+    
+    return reporte.toString(); // Devolvemos todo el texto junto
     }
 }
