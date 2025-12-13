@@ -4,7 +4,7 @@
  */
 package Logica;
 
-
+// 1. Importaciones obligatorias para JPA
 import java.util.Date;
 /**
  *

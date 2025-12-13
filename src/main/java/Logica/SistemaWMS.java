@@ -55,19 +55,13 @@ public class SistemaWMS {
     private final List<Producto> productos = new ArrayList<>();
     private final List<Ubicacion> ubicaciones = new ArrayList<>();
     private final List<Orden> Ordenes = new ArrayList<>();
-    //contador para IDs
- 
-    
-
     
     public List<Producto> getProductos() {
         return productos;
     }
-
     public List<Ubicacion> getUbicaciones() {
         return ubicaciones;
     }
-
     public List<Orden> getOrdenes() {
         return Ordenes;
     }
@@ -259,5 +253,20 @@ public class SistemaWMS {
         return ubicacionStock.obtenerDetalleStock();
     }
     
-    
+    public String consultarProductoStock(String producto){
+        Producto productoStock = buscarProductoPorDescripcion(producto);
+        
+        if (productoStock == null) {
+            return "El producto '" + producto + "' no existe en el sistema.";
+        }
+        
+        int stockTotal= 0;
+        
+        for(Ubicacion u : ubicaciones){
+            
+            stockTotal += u.StockporProducto(productoStock);
+        }         
+        return "Stock total de: " + productoStock.getDescripcion() +" = "+ stockTotal;
+        
+    }
 }

@@ -15,16 +15,16 @@ public class IntegradorFinal {
 
     public static void main(String[] args) {
         
-        // 1. Inicializar el Sistema WMS (El controlador central)
+        // 1. Inicializar el Sistema WMS (El controlador de la logica)
         SistemaWMS sistema = new SistemaWMS();
         System.out.println("Sistema WMS Inicializado.");
         System.out.println("----------------------------------------");
 
         
-        
-    PantallaInicio pantalla = new PantallaInicio(sistema);
-    pantalla.pack(); // Asegura que la ventana tenga el tamaño correcto antes de moverse
-    pantalla.setLocationRelativeTo(null); // PRIMERO la centras (mientras es invisible)
-    pantalla.setVisible(true);            // LUEGO la muestras (ya centrada)
+        //inicializo la interfaz para el modo cliente
+        PantallaInicio pantalla = new PantallaInicio(sistema);
+        pantalla.pack(); // Asegura que la ventana tenga el tamaño correcto antes de moverse
+        pantalla.setLocationRelativeTo(null); // PRIMERO la centras (mientras es invisible)
+        pantalla.setVisible(true);            // LUEGO la muestras (ya centrada)
     }
 }
