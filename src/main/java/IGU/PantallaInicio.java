@@ -619,9 +619,9 @@ public class PantallaInicio extends javax.swing.JFrame {
         txtProductoUbicacionStock
         txtProductoUbicacionStock2
         */   
-         String productoStock = txtProductoStock.getText().trim();
-         String ubicacionStock = txtUbicacionStock.getText().trim();
-         int codigoUbicacion = Integer.parseInt(ubicacionStock);
+        String productoStock = txtProductoStock.getText().trim();
+        String ubicacionStock = txtUbicacionStock.getText().trim();
+        int codigoUbicacion = Integer.parseInt(ubicacionStock);
       
         StringBuilder reporteFinal = new StringBuilder();
         boolean huboConsulta = false; // Para saber si al menos se hizo una búsqueda
