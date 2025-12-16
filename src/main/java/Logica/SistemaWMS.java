@@ -116,18 +116,54 @@ public class SistemaWMS {
     }
   
     
-    /**
-     * Crea y registra una nueva Orden (Movimiento) en el sistema.
-     * @param descripcionProducto El string del objeto.
-     * @param cantidad La cantidad a mover.
-     * @param usuario El String del usuario logueado.
-     * @param uOrigen La Ubicacion de donde sale o entra el producto.
-     * @param tipoOrden
-     * @param uDestino La Ubicacion de destino (solo se usa en INTERNO).
-     * @return La Orden creada o lanza una excepción.
-     */
     
     //metodos que maneja el lado cliente
+  
+    public Producto crearNuevoProducto( String descripcion, String unidadMedida, double pesoPorUnidad) {
+       // 2. Llamar al constructor de la Orden
+       
+        try {  //como un if que siempre da true 
+            Producto nuevoProducto = new Producto(
+           
+                descripcion, 
+                unidadMedida, 
+                pesoPorUnidad
+            );
+            
+            productos.add(nuevoProducto);   
+            return nuevoProducto;    
+        } 
+        catch (IllegalArgumentException e) { 
+            //muestra del error, podria dejar mensaje
+            throw e; 
+        }            
+    }
+        
+    public Ubicacion crearNuevaUbicacion( String nave, String zona, String estanteria, String nivel) {
+        // generador automatico de id para orden  
+        TipoZona tipoEncontradoZona = buscarTipoZona(zona);
+        
+        if(tipoEncontradoZona == null) 
+        {
+            throw new IllegalArgumentException("el tipo zona: " + zona+ "' no existe en el sistema.");       
+        }
+        // 2. Llamar al constructor de la Orden
+        try {  //como un if que siempre da true 
+                Ubicacion nuevoUbicacion = new Ubicacion(        
+                nave,  
+                tipoEncontradoZona, 
+                estanteria, 
+                nivel
+                );
+                
+                ubicaciones.add(nuevoUbicacion);
+                return nuevoUbicacion;
+        } 
+        catch (IllegalArgumentException e) { //como el else, se activa en false
+            throw e; //muestra del error, podria dejar mensaje
+        }
+    }
+    
     public Orden crearNuevaOrden(String descripcionProducto, int cantidad, String usuario, int uOrigen, String tipoOrden, int uDestino) {
         
         Ubicacion ubicacionDestino = null; // Inicializada a null por defecto
@@ -187,64 +223,6 @@ public class SistemaWMS {
             }            
     }
     
-    public Producto crearNuevoProducto( String descripcion, String unidadMedida, double pesoPorUnidad) {
-        
- 
-      
-
-        // 2. Llamar al constructor de la Orden
-        try {  //como un if que siempre da true 
-            Producto nuevoProducto = new Producto(
-           
-                descripcion, 
-                unidadMedida, 
-                pesoPorUnidad
-            );
-            
-            productos.add(nuevoProducto);
-            
-            return nuevoProducto;    
-        } 
-        catch (IllegalArgumentException e) { 
-            
-            throw e; //muestra del error, podria dejar mensaje
-        }
-             
-        
-    }
-        
-    public Ubicacion crearNuevaUbicacion( String nave, String zona, String estanteria, String nivel) {
-        
-        // generador automatico de id para orden
-       
-        
-        
-        TipoZona tipoEncontradoZona = buscarTipoZona(zona);
-        
-        if(tipoEncontradoZona == null) 
-        {
-            throw new IllegalArgumentException("el tipo zona: " + zona+ "' no existe en el sistema.");       
-        }
-        
-
-        // 2. Llamar al constructor de la Orden
-        try {  //como un if que siempre da true 
-                Ubicacion nuevoUbicacion = new Ubicacion(  
-                   
-                nave,  
-                tipoEncontradoZona, 
-                estanteria, 
-                nivel
-                );
-            
-                ubicaciones.add(nuevoUbicacion);
-            
-                return nuevoUbicacion;
-        } 
-        catch (IllegalArgumentException e) { //como el else, se activa en false
-            throw e; //muestra del error, podria dejar mensaje
-        }
-    }
     
     public String consultarUbicacionStock(int ubicacion){
         

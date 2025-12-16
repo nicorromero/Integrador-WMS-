@@ -9,9 +9,9 @@ package Logica;
  * @author nicor
  */
 public enum TipoZona {
-    RECEPCION("zona de recepción"),
-    ALMACENAMIENTO("zona de almacenamiento"),
-    SALIDA("zona de salida");
+    RECEPCION("recepción"),
+    ALMACENAMIENTO("almacenamiento"),
+    SALIDA("salida");
 
     // Atributo para guardar una descripción más amigable
     private final String descripcion;

@@ -6,6 +6,7 @@ package IGU;
 
 
 import Logica.Orden;
+import Logica.Producto;
 import Logica.SistemaWMS;
 import java.awt.HeadlessException;
 import javax.swing.JComboBox;
@@ -95,9 +96,9 @@ public class PantallaInicio extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtPesoUnidad = new javax.swing.JTextField();
+        txtDescripcion = new javax.swing.JTextField();
+        txtUnidadMedida = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -268,6 +269,12 @@ public class PantallaInicio extends javax.swing.JFrame {
 
         jLabel30.setText("Nave :");
 
+        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField7ActionPerformed(evt);
+            }
+        });
+
         jLabel37.setText("AGREGAR NUEVA UBICACION");
 
         jButton3.setText("VOLVER");
@@ -278,6 +285,11 @@ public class PantallaInicio extends javax.swing.JFrame {
         });
 
         jButton4.setText("CREAR");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelUbicacionLayout = new javax.swing.GroupLayout(panelUbicacion);
         panelUbicacion.setLayout(panelUbicacionLayout);
@@ -507,6 +519,12 @@ public class PantallaInicio extends javax.swing.JFrame {
 
         jLabel24.setText("Peso por Unidad : ");
 
+        txtPesoUnidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesoUnidadActionPerformed(evt);
+            }
+        });
+
         jLabel38.setText("AGREGAR NUEVO PRODUCTO");
 
         jButton1.setText("VOLVER");
@@ -517,6 +535,11 @@ public class PantallaInicio extends javax.swing.JFrame {
         });
 
         jButton2.setText("CREAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelProductoLayout = new javax.swing.GroupLayout(panelProducto);
         panelProducto.setLayout(panelProductoLayout);
@@ -528,14 +551,14 @@ public class PantallaInicio extends javax.swing.JFrame {
                     .addGroup(panelProductoLayout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16))
                     .addGroup(panelProductoLayout.createSequentialGroup()
                         .addGroup(panelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelProductoLayout.createSequentialGroup()
                                 .addComponent(jLabel23)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelProductoLayout.createSequentialGroup()
                                 .addGroup(panelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel24)
@@ -545,7 +568,7 @@ public class PantallaInicio extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(panelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton1)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtPesoUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(15, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -560,15 +583,15 @@ public class PantallaInicio extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(panelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(52, 52, 52)
                 .addGroup(panelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel23)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addGroup(panelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel24)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPesoUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(83, 83, 83)
                 .addGroup(panelProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -781,6 +804,42 @@ public class PantallaInicio extends javax.swing.JFrame {
         layout.show(PanelContenedor, "menuPrincipal");
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField7ActionPerformed
+
+    private void txtPesoUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesoUnidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesoUnidadActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String descripcion = txtDescripcion.getText().trim();
+        String pesoUnidad = txtPesoUnidad.getText().trim();
+        String unidadMedida = txtUnidadMedida.getText().trim();
+        
+        double pesoPorUnidad = Double.parseDouble(pesoUnidad);
+        
+        try{
+            Producto producto = controlador.crearNuevoProducto(
+                    descripcion, 
+                    unidadMedida, 
+                    pesoPorUnidad
+            );            
+            JOptionPane.showMessageDialog(this, "Orden creada exitosamente: ID " + producto.getDescripcion() );
+        
+        }catch (IllegalArgumentException e) {
+            // esto detecta erroes de stock o logica
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error en la Orden", JOptionPane.ERROR_MESSAGE);
+        } catch (HeadlessException e) {
+            // Captura otro error inesperado de codigo
+            JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelContenedor;
@@ -816,9 +875,6 @@ public class PantallaInicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
@@ -830,12 +886,15 @@ public class PantallaInicio extends javax.swing.JFrame {
     private javax.swing.JPanel panelUbicacion;
     private javax.swing.JTextField txt2Ubicacion;
     private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtPesoUnidad;
     private javax.swing.JTextField txtProducto;
     private javax.swing.JTextField txtProductoStock;
     private javax.swing.JTextField txtResponsable;
     private javax.swing.JTextField txtTipoOrden;
     private javax.swing.JTextField txtUbicacion;
     private javax.swing.JTextField txtUbicacionStock;
+    private javax.swing.JTextField txtUnidadMedida;
     // End of variables declaration//GEN-END:variables
 }
 
