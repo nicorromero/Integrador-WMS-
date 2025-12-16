@@ -5,35 +5,50 @@
 package Logica;
 
 // 1. Importaciones obligatorias para JPA
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import java.util.Date;
 /**
  *
  * @author nicor
  */
-
+@Entity
 public class Orden {
-    private static int contadorIds = 1;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigoUnico;
     private String usuarioResponsable;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
+    @ManyToOne // Muchas ordenes pueden ser de UN producto
     private Producto producto;
     private int cantidad;
+    @ManyToOne // Muchas ordenes pueden salir de UNA ubicación
     private Ubicacion ubicacionOrigen;
+    @Enumerated(EnumType.STRING) // Guardamos el texto "INGRESO", "EGRESO"..
     private TipoOrden tipo;
+    @ManyToOne //Muchas ordenes pueden salir de UNA ubicación
     private Ubicacion ubicacionDestino= null;
 
     //contructor:
+    public Orden() {}  
+    
     public Orden(String usuarioResponsable, Producto producto, int cantidad, Ubicacion ubicacionOrigen, TipoOrden tipo, Ubicacion ubicacionDestino){
-    this.codigoUnico = contadorIds++;
     this.usuarioResponsable = usuarioResponsable;
     this.fecha = new Date();
     this.producto = producto;
     this.cantidad = cantidad;
     this.ubicacionOrigen = ubicacionOrigen;
     this.tipo = tipo;
-    this.ubicacionDestino = ubicacionDestino;
-        
-       
+    this.ubicacionDestino = ubicacionDestino; 
+    
         //validaciones
         if (cantidad <= 0) {
             throw new IllegalArgumentException("La cantidad debe ser mayor a 0");
@@ -70,8 +85,10 @@ public class Orden {
         
     } //aca termina el constructor
     
+    // --- Getters y Setters necesarios para JPA ---
     
-
+    
+    
     public int getCodigoUnico() {
         return codigoUnico;
     }

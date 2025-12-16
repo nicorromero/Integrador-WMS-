@@ -4,6 +4,10 @@
  */
 package Logica;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +15,10 @@ import java.util.List;
  *
  * @author nicor
  */
+@Entity
 public class Producto {
-    private static  int contadorIds =1;
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigoUnico;
     private String descripcion;
     private String unidadMedida; // Por ejemplo: "unidades", "kg", "litros"
@@ -23,11 +29,12 @@ public class Producto {
     
     //contructor: 
     public Producto( String descripcion, String unidadMedida, double pesoPorUnidad) {
-        this.codigoUnico = contadorIds++;
         this.descripcion = descripcion;
         this.unidadMedida = unidadMedida;
         this.pesoPorUnidad = pesoPorUnidad;   
     }
+    
+    public Producto (){}
   
     //getters: 
     public int getCodigoUnico() {
@@ -46,5 +53,22 @@ public class Producto {
         return pesoPorUnidad;
     }   
     
- 
+    //setters
+
+    public void setCodigoUnico(int codigoUnico) {
+        this.codigoUnico = codigoUnico;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setUnidadMedida(String unidadMedida) {
+        this.unidadMedida = unidadMedida;
+    }
+
+    public void setPesoPorUnidad(double pesoPorUnidad) {
+        this.pesoPorUnidad = pesoPorUnidad;
+    }
+    
 }

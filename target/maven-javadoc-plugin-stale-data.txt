@@ -1,0 +1,50 @@
+@options
+@packages
+-classpath
+'C:/Users/nicor/.m2/repository/com/mysql/mysql-connector-j/8.3.0/mysql-connector-j-8.3.0.jar;C:/Users/nicor/.m2/repository/com/google/protobuf/protobuf-java/3.25.1/protobuf-java-3.25.1.jar;C:/Users/nicor/.m2/repository/org/hibernate/orm/hibernate-core/6.4.4.Final/hibernate-core-6.4.4.Final.jar;C:/Users/nicor/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar;C:/Users/nicor/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar'
+-encoding
+'UTF-8'
+-protected
+--release
+23
+-sourcepath
+'C:/Users/nicor/OneDrive/Escritorio/Documentos/NetBeansProjects/IntegradorFinal/src/main/java;C:/Users/nicor/OneDrive/Escritorio/Documentos/NetBeansProjects/IntegradorFinal/target/generated-sources/annotations'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/nicor/OneDrive/Escritorio/Documentos/NetBeansProjects/IntegradorFinal/target/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'IntegradorFinal 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'IntegradorFinal 1.0-SNAPSHOT API'
+IGU
+Logica
+C:\Users\nicor\.m2\repository\com\mysql\mysql-connector-j\8.3.0\mysql-connector-j-8.3.0.jar = 1765891918571
+C:\Users\nicor\.m2\repository\com\google\protobuf\protobuf-java\3.25.1\protobuf-java-3.25.1.jar = 1765891919726
+C:\Users\nicor\.m2\repository\org\hibernate\orm\hibernate-core\6.4.4.Final\hibernate-core-6.4.4.Final.jar = 1765891920826
+C:\Users\nicor\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar = 1765891918720
+C:\Users\nicor\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar = 1765891920766
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java = 1762035019733
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\generated-sources\annotations = 1765894839066
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\allclasses-index.html = 1765894858187
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\allpackages-index.html = 1765894858191
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\element-list = 1765894857467
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\help-doc.html = 1765894858394
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\index-all.html = 1765894858305
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\index.html = 1765894858087
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\member-search-index.js = 1765894858199
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\module-search-index.js = 1765894858193
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\overview-summary.html = 1765894858378
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\overview-tree.html = 1765894858079
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\package-search-index.js = 1765894858196
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\search.html = 1765894858308
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\serialized-form.html = 1765894857730
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\tag-search-index.js = 1765894858201
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\target\apidocs\type-search-index.js = 1765894858198

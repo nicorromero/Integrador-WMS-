@@ -5,246 +5,160 @@
 
 package Logica;
 
-import java.util.ArrayList;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 
-/**
- *
- * @author nicor
- */
 public class SistemaWMS {
     
-    public SistemaWMS() 
-    {
-        this.inicializarDatosDePrueba(); 
+    // ESTA es la conexión real a la base de datos
+    private EntityManagerFactory emf;
+    private EntityManager em;
+
+    public SistemaWMS() {
+        // Al iniciar, conectamos con la base de datos "WMSPU" (definida en persistencia.xml)
+        this.emf = Persistence.createEntityManagerFactory("WMSPU");
+        this.em = emf.createEntityManager();
     }
     
-    //metodo privado, y no punlico recomendado por la ia 
-    private void inicializarDatosDePrueba() {
-        // 1. Crear Ubicaciones
-        // ID 1: Ubicación con stock
-        Ubicacion u1 = new Ubicacion("Nave A", TipoZona.ALMACENAMIENTO, "E01", "N01");
-        ubicaciones.add(u1);
-        
-        // ID 2: Ubicación vacía (para probar movimientos o errores)
-        Ubicacion u2 = new Ubicacion("Nave B", TipoZona.ALMACENAMIENTO, "E02", "N01");
-        ubicaciones.add(u2);
-        
-        
-        // 2. Crear Productos
-        // ID 1: Producto corregido
-        Producto p1 = new Producto("Zapatillas Nike", "Par", 0.8); // 0.8 kg por par
-        productos.add(p1);
-        
-        // ID 2: Otro producto
-        Producto p2 = new Producto("Casco Seguridad", "Unidad", 0.5);
-        productos.add(p2);
+    // --- MÉTODOS DE BÚSQUEDA (CONSULTAS A BD) ---
 
-
-        // 3. CARGAR STOCK INICIAL AUTOMÁTICO
-        // Esto es clave: Cargamos 100 pares de zapatillas en la ubicación u1 (ID 1).
-        // Ahora puedes abrir el programa y probar un EGRESO de "Zapatillas Nike" desde la ubicación 1 directamente.
-        u1.agregarStock(p1, 100); 
-        
-        // También cargamos 10 cascos en la ubicación u1
-        u1.agregarStock(p2, 10);
-    }
-    
-    
-    //de aca salen registros de Stock
-    private final List<Producto> productos = new ArrayList<>();
-    private final List<Ubicacion> ubicaciones = new ArrayList<>();
-    private final List<Orden> Ordenes = new ArrayList<>();
-    
-    public List<Producto> getProductos() {
-        return productos;
-    }
-    public List<Ubicacion> getUbicaciones() {
-        return ubicaciones;
-    }
-    public List<Orden> getOrdenes() {
-        return Ordenes;
-    }
-
-
-    
-
-
-    //Para leer los txt del frame y tranformar a objeto
-    
     public Producto buscarProductoPorDescripcion(String txtProducto){
-        for (Producto p : productos){
-            if(p.getDescripcion().equalsIgnoreCase(txtProducto.trim()))
-            {
-                return p;
-            }
+        try {
+            // Escribimos JPQL (SQL de Java): "Selecciona p de la clase Producto donde..."
+            TypedQuery<Producto> query = em.createQuery(
+                "SELECT p FROM Producto p WHERE p.descripcion = :desc", Producto.class);
+            query.setParameter("desc", txtProducto);
+            return query.getSingleResult(); // Retorna el producto encontrado
+        } catch (Exception e) {
+            return null; // Si no encuentra nada, retorna null
         }
-                return null;
     }
     
     public Ubicacion buscarUbicacionPorCodigo(int codigo){
-        
-        for (Ubicacion u : ubicaciones){
-            if(u.getCodigoUnico() == codigo)
-            {
-                return u;
-            }
-        }
-            return null;
+        // find() es el método más rápido para buscar por ID (Clave primaria)
+        return em.find(Ubicacion.class, codigo);
     }
     
+    // Los Enum no están en BD como tabla, así que los buscamos igual que antes (en memoria)
     public TipoOrden buscarTipoOrden (String descripcionOrden){
-        for (TipoOrden orden : TipoOrden.values()) 
-        {
-            if(orden.getDescripcion().equalsIgnoreCase(descripcionOrden))
-            {
-                return orden;
-            }
+        for (TipoOrden orden : TipoOrden.values()) {
+            if(orden.getDescripcion().equalsIgnoreCase(descripcionOrden)) return orden;
         }
-            return null;
+        return null;
     }
         
     public TipoZona buscarTipoZona (String descripcionZona){
-        for (TipoZona zona : TipoZona.values()) 
-        {
-            if(zona.getDescripcion().equalsIgnoreCase(descripcionZona)|| zona.name().equalsIgnoreCase(descripcionZona))
-            {
-                return zona;
-            }
+        for (TipoZona zona : TipoZona.values()) {
+            if(zona.getDescripcion().equalsIgnoreCase(descripcionZona) || zona.name().equalsIgnoreCase(descripcionZona)) return zona;
         }   
-            return null;   
+        return null;   
     }
   
-    
-    
-    //metodos que maneja el lado cliente
+    // --- MÉTODOS DE CREACIÓN (GUARDAR EN BD) ---
   
-    public Producto crearNuevoProducto( String descripcion, String unidadMedida, double pesoPorUnidad) {
-       // 2. Llamar al constructor de la Orden
-       
-        try {  //como un if que siempre da true 
-            Producto nuevoProducto = new Producto(
-           
-                descripcion, 
-                unidadMedida, 
-                pesoPorUnidad
-            );
-            
-            productos.add(nuevoProducto);   
-            return nuevoProducto;    
-        } 
-        catch (IllegalArgumentException e) { 
-            //muestra del error, podria dejar mensaje
-            throw e; 
-        }            
+    public Producto crearNuevoProducto(String descripcion, String unidadMedida, double pesoPorUnidad) {
+        // 1. Crear el objeto (todavía no está en BD)
+        Producto nuevoProducto = new Producto(descripcion, unidadMedida, pesoPorUnidad);
+        
+        // 2. Iniciar transacción (como "abrir modo edición")
+        em.getTransaction().begin();
+        
+        // 3. Guardar
+        em.persist(nuevoProducto);
+        
+        // 4. Confirmar cambios (Guardar definitivamente)
+        em.getTransaction().commit();
+        
+        return nuevoProducto;    
     }
         
-    public Ubicacion crearNuevaUbicacion( String nave, String zona, String estanteria, String nivel) {
-        // generador automatico de id para orden  
-        TipoZona tipoEncontradoZona = buscarTipoZona(zona);
+    public Ubicacion crearNuevaUbicacion(String nave, String zonaTexto, String estanteria, String nivel) {
+        TipoZona zona = buscarTipoZona(zonaTexto);
+        if(zona == null) throw new IllegalArgumentException("La zona no existe");
+
+        Ubicacion nuevaUbicacion = new Ubicacion(nave, zona, estanteria, nivel);
         
-        if(tipoEncontradoZona == null) 
-        {
-            throw new IllegalArgumentException("el tipo zona: " + zona+ "' no existe en el sistema.");       
-        }
-        // 2. Llamar al constructor de la Orden
-        try {  //como un if que siempre da true 
-                Ubicacion nuevoUbicacion = new Ubicacion(        
-                nave,  
-                tipoEncontradoZona, 
-                estanteria, 
-                nivel
-                );
-                
-                ubicaciones.add(nuevoUbicacion);
-                return nuevoUbicacion;
-        } 
-        catch (IllegalArgumentException e) { //como el else, se activa en false
-            throw e; //muestra del error, podria dejar mensaje
-        }
+        em.getTransaction().begin();
+        em.persist(nuevaUbicacion);
+        em.getTransaction().commit();
+        
+        return nuevaUbicacion;
     }
     
-    public Orden crearNuevaOrden(String descripcionProducto, int cantidad, String usuario, int uOrigen, String tipoOrden, int uDestino) {
+    public Orden crearNuevaOrden(String descProducto, int cantidad, String usuario, int idOrigen, String tipoOrdenTxt, int idDestino) {
+        // Buscamos en la BD
+        Producto prod = buscarProductoPorDescripcion(descProducto);
+        if (prod == null) throw new IllegalArgumentException("Producto no encontrado");
         
-        Ubicacion ubicacionDestino = null; // Inicializada a null por defecto
-                                           //marca rojo el null por parecer rebundante pero NO lo es
-        //convierte el string en producto
-        Producto productoEncontrado = buscarProductoPorDescripcion(descripcionProducto);
+        Ubicacion uOrigen = buscarUbicacionPorCodigo(idOrigen);
+        if (uOrigen == null) throw new IllegalArgumentException("Ubicación origen no encontrada");
         
-        //validacion
-        if (productoEncontrado == null) {
-        throw new IllegalArgumentException("El producto con descripción '" + descripcionProducto + "' no existe en el sistema.");
+        TipoOrden tipo = buscarTipoOrden(tipoOrdenTxt);
+        if (tipo == null) throw new IllegalArgumentException("Tipo orden no válido");
+        
+        Ubicacion uDestino = null;
+        if (tipo == TipoOrden.INTERNO) {
+            uDestino = buscarUbicacionPorCodigo(idDestino);
+            if (uDestino == null) throw new IllegalArgumentException("Ubicación destino requerida");
         }
+
+        // Lógica de Negocio (validaciones dentro del constructor de Orden)
+        Orden nuevaOrden = new Orden(usuario, prod, cantidad, uOrigen, tipo, uDestino);
         
-        //convierte el string en ubicacion
-        Ubicacion ubicacionEncontrada = buscarUbicacionPorCodigo(uOrigen);
+        // Guardamos la orden
+        em.getTransaction().begin();
         
-        //validacion
-        if (ubicacionEncontrada == null) {
-        throw new IllegalArgumentException("La Ubicacion con descripción '" + uOrigen + "' no existe en el sistema.");
-        }
-        
-        //convertir el string de TipoOrden en objeto 
-        //validacion
-        TipoOrden tipoEncontrado = buscarTipoOrden(tipoOrden);
-        if(tipoEncontrado == null) {
-            throw new IllegalArgumentException("el tipo orden: " + tipoOrden + "' no existe en el sistema.");       
-        }
-           
-        //validacion y manejo de null para la segunda ubicacion 
-        if (tipoEncontrado == TipoOrden.INTERNO ) 
-        {
-            //convierte el string en ubicacion
-            ubicacionDestino = buscarUbicacionPorCodigo(uDestino);
-            
-            if ( ubicacionDestino == null || uDestino == 0 ) //uDestino no puede estar vacío
-            {
-                throw new IllegalArgumentException("Una orden de tipo INTERNO requiere un código de Ubicación de Destino.");
-            }  
-            if (ubicacionEncontrada.equals(ubicacionDestino)) //comparar que las ubicaciones no sean iguales 
-            {
-            throw new IllegalArgumentException("El origen y el destino no pueden ser la misma ubicación para una transferencia interna.");
+        // IMPORTANTE: También hay que actualizar el stock dentro de las ubicaciones
+        // (JPA guardará los cambios en 'uOrigen' automáticamente al hacer commit porque lo modificamos)
+        // Pero primero asegurémonos de llamar a tu lógica de movimiento:
+        switch (tipo) {
+            case INGRESO -> uOrigen.agregarStock(prod, cantidad);
+            case EGRESO -> uOrigen.quitarStock(prod, cantidad);
+            case INTERNO -> {
+                uOrigen.quitarStock(prod, cantidad);
+                uDestino.agregarStock(prod, cantidad);
             }
-        }          
-            try {  //como un if que siempre da true 
-                Orden nuevaOrden = new Orden(
-                    usuario, 
-                    productoEncontrado, 
-                    cantidad,
-                    ubicacionEncontrada, 
-                    tipoEncontrado, 
-                    ubicacionDestino 
-                );  
-                Ordenes.add(nuevaOrden);
-                return nuevaOrden;    
-            } 
-            catch (IllegalArgumentException e) {   
-                throw e; 
-            }            
-    }
-    
-    
-    public String consultarUbicacionStock(int ubicacion){
-        
-        Ubicacion ubicacionStock = buscarUbicacionPorCodigo(ubicacion);
-               
-        return ubicacionStock.obtenerDetalleStock();
-    }
-    
-    public String consultarProductoStock(String producto){
-        Producto productoStock = buscarProductoPorDescripcion(producto);
-        
-        if (productoStock == null) {
-            return "El producto '" + producto + "' no existe en el sistema.";
         }
         
-        int stockTotal= 0;
+        em.persist(nuevaOrden); // Guardamos la orden
+        // No hace falta hacer 'em.persist(uOrigen)' porque ya está gestionada, JPA detecta el cambio de stock solo.
         
-        for(Ubicacion u : ubicaciones){
-            
-            stockTotal += u.StockporProducto(productoStock);
-        }         
-        return "Stock total de: " + productoStock.getDescripcion() +" = "+ stockTotal;
+        em.getTransaction().commit();
+        return nuevaOrden;
+    }
+    
+    // --- REPORTES ---
+    
+    public String consultarUbicacionStock(int codigoUbicacion){
+        Ubicacion u = buscarUbicacionPorCodigo(codigoUbicacion);
+        if (u == null) return "Ubicación no encontrada";
+        return u.obtenerDetalleStock();
+    }
+    
+    public String consultarProductoStock(String descProducto){
+        // Esto podría optimizarse con SQL, pero por ahora reutilizamos tu lógica
+        Producto p = buscarProductoPorDescripcion(descProducto);
+        if (p == null) return "Producto no existe";
+
+        // Traemos todas las ubicaciones de la BD para sumar
+        TypedQuery<Ubicacion> query = em.createQuery("SELECT u FROM Ubicacion u", Ubicacion.class);
+        List<Ubicacion> todas = query.getResultList();
         
+        int total = 0;
+        for(Ubicacion u : todas){
+            // Usamos tu método existente que busca en el Mapa
+            // Nota: Al ser un Mapa, Java ya lo trajo de la BD automáticamente
+            total += u.getStockPorProducto().getOrDefault(p, 0);
+        }
+        return "Stock total de " + p.getDescripcion() + ": " + total;
+    }
+
+    // Método para cerrar conexión al salir (opcional pero recomendado)
+    public void cerrarSistema() {
+        if (em.isOpen()) em.close();
+        if (emf.isOpen()) emf.close();
     }
 }

@@ -4,6 +4,17 @@
  */
 package Logica;
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapKeyJoinColumn;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,27 +22,36 @@ import java.util.Map;
  *
  * @author nicor
  */
+@Entity
 public class Ubicacion {
-    private static int contadorIds = 1;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigoUnico;
     private String nave;
+    @Enumerated(EnumType.STRING)
     private TipoZona zona;
     private String estanteria;
     private String nivel;
     private double pesoActualKg;
+    @ElementCollection
+    @CollectionTable(name = "stock_ubicacion", joinColumns = @JoinColumn(name = "ubicacion_id"))
+    @MapKeyJoinColumn(name = "producto_id")
+    @Column(name = "cantidad")
     private Map <Producto, Integer> stockPorProducto;// Usamos un Mapa para relacionar cada Producto con su cantidad (stock) en esta ubicación.
     private static final double CAPACIDAD_MAXIMA_KG = 1250.0; // Constante para la capacidad. 'final' significa que no puede cambiar.
    
    
     //contructor:
     public Ubicacion( String nave, TipoZona zona, String estanteria, String nivel) {
-        this.codigoUnico = contadorIds++;
         this.nave = nave;
         this.zona = zona;
         this.estanteria = estanteria;
         this.nivel = nivel;
         this.pesoActualKg = 0.0;
         this.stockPorProducto = new HashMap<>();
+    }
+    
+    public Ubicacion() {
     }
 
     
