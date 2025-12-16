@@ -8,6 +8,7 @@ package IGU;
 import Logica.Orden;
 import Logica.Producto;
 import Logica.SistemaWMS;
+import Logica.Ubicacion;
 import java.awt.HeadlessException;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -69,10 +70,10 @@ public class PantallaInicio extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        txtNivel = new javax.swing.JTextField();
+        txtZona = new javax.swing.JTextField();
+        txtNave = new javax.swing.JTextField();
+        txtEstanteria = new javax.swing.JTextField();
         jLabel37 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -269,9 +270,9 @@ public class PantallaInicio extends javax.swing.JFrame {
 
         jLabel30.setText("Nave :");
 
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        txtNave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                txtNaveActionPerformed(evt);
             }
         });
 
@@ -301,15 +302,15 @@ public class PantallaInicio extends javax.swing.JFrame {
                     .addGroup(panelUbicacionLayout.createSequentialGroup()
                         .addComponent(jLabel28)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtEstanteria, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelUbicacionLayout.createSequentialGroup()
                         .addGroup(panelUbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel30)
                             .addComponent(jLabel29))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(panelUbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtZona, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelUbicacionLayout.createSequentialGroup()
                         .addGroup(panelUbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelUbicacionLayout.createSequentialGroup()
@@ -321,7 +322,7 @@ public class PantallaInicio extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(panelUbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(20, 20, 20))
             .addGroup(panelUbicacionLayout.createSequentialGroup()
                 .addGap(51, 51, 51)
@@ -336,18 +337,18 @@ public class PantallaInicio extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(panelUbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43)
                 .addGroup(panelUbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtZona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel29))
                 .addGap(39, 39, 39)
                 .addGroup(panelUbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEstanteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel28))
                 .addGap(50, 50, 50)
                 .addGroup(panelUbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27))
                 .addGap(64, 64, 64)
                 .addGroup(panelUbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -805,12 +806,34 @@ public class PantallaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String Nivel = txtNivel.getText().trim();
+        String Zona  = txtZona.getText().trim();
+        String Estanteria = txtEstanteria.getText().trim();
+        String Nave = txtNave.getText().trim();
+        
+        try {
+            Ubicacion ubicacion = controlador.crearNuevaUbicacion(
+                    Nave,
+                    Zona,
+                    Estanteria,
+                    Nivel);
+            
+            JOptionPane.showMessageDialog(this, "Producto creado exitosamente:  " + ubicacion.getIdentificador() );
+        
+            
+        }catch (IllegalArgumentException e) {
+            // esto detecta erroes de stock o logica
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error en la Orden", JOptionPane.ERROR_MESSAGE);
+        } catch (HeadlessException e) {
+            // Captura otro error inesperado de codigo
+            JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + e.getMessage());
+        }
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void txtNaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNaveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_txtNaveActionPerformed
 
     private void txtPesoUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesoUnidadActionPerformed
         // TODO add your handling code here:
@@ -829,7 +852,7 @@ public class PantallaInicio extends javax.swing.JFrame {
                     unidadMedida, 
                     pesoPorUnidad
             );            
-            JOptionPane.showMessageDialog(this, "Orden creada exitosamente: ID " + producto.getDescripcion() );
+            JOptionPane.showMessageDialog(this, "Producto creado exitosamente:  " + producto.getDescripcion() );
         
         }catch (IllegalArgumentException e) {
             // esto detecta erroes de stock o logica
@@ -875,10 +898,6 @@ public class PantallaInicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JPanel panelInicio;
     private javax.swing.JPanel panelOrden;
     private javax.swing.JPanel panelProducto;
@@ -887,6 +906,9 @@ public class PantallaInicio extends javax.swing.JFrame {
     private javax.swing.JTextField txt2Ubicacion;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtEstanteria;
+    private javax.swing.JTextField txtNave;
+    private javax.swing.JTextField txtNivel;
     private javax.swing.JTextField txtPesoUnidad;
     private javax.swing.JTextField txtProducto;
     private javax.swing.JTextField txtProductoStock;
@@ -895,6 +917,7 @@ public class PantallaInicio extends javax.swing.JFrame {
     private javax.swing.JTextField txtUbicacion;
     private javax.swing.JTextField txtUbicacionStock;
     private javax.swing.JTextField txtUnidadMedida;
+    private javax.swing.JTextField txtZona;
     // End of variables declaration//GEN-END:variables
 }
 
