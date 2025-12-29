@@ -1,44 +1,30 @@
-# Integrador WMS (Warehouse Management System) 📦
+# Scalable WMS Core - Sistema de Gestión de Almacenes
 
-Este proyecto es un sistema de gestión de almacenes desarrollado en **Java**. Permite controlar el flujo de inventario mediante la creación de productos, ubicaciones estratégicas en naves y la gestión de órdenes de ingreso, egreso y movimientos internos.
+[![Java Version](https://img.shields.io/badge/Java-17%2B-orange.svg)](https://www.oracle.com/java/)
+[![Maven](https://img.shields.io/badge/Maven-3.8.1-blue.svg)](https://maven.apache.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## 🚀 Funcionalidades Principales
+Este proyecto es un núcleo de **Warehouse Management System (WMS)** diseñado para optimizar el flujo de inventario, la gestión de ubicaciones jerárquicas y el procesamiento de órdenes de entrada y salida.
 
-* **Gestión de Inventario:** Creación y seguimiento de productos con atributos de peso y unidad de medida.
-* **Control de Ubicaciones:** Organización por Naves, Zonas (Recepción, Almacenamiento, Salida), Estanterías y Niveles.
-* **Sistema de Órdenes:** * **Ingreso:** Aumenta el stock en una ubicación específica.
-    * **Egreso:** Reduce el stock validando existencias previas.
-    * **Interno (Transferencia):** Mueve productos entre ubicaciones del almacén.
-* **Validación de Capacidad:** El sistema controla automáticamente que no se exceda el peso máximo de 1250 kg por ubicación.
-* **Interfaz Gráfica (IGU):** Panel amigable desarrollado en Swing para la operación del sistema en tiempo real.
+## 🚀 Características Principales
+* **Jerarquía de Almacenamiento:** Gestión de ubicaciones por zonas (Picking, Recepción, etc.) con validación de capacidad de carga.
+* **Motor de Órdenes:** Procesamiento inteligente de órdenes de `ENTRADA` y `SALIDA`.
+* **Persistencia Robusta:** Implementación de JPA para la gestión de datos relacionales.
+* **Interfaz Administrativa:** GUI desarrollada en Swing para control operativo en tiempo real.
 
-## 🛠️ Tecnologías Utilizadas
+## 🏗️ Arquitectura del Sistema
+El sistema sigue una arquitectura orientada a objetos con separación de responsabilidades:
+* **Logica:** Contiene el "cerebro" (`SistemaWMS.java`) y las entidades de negocio.
+* **IGU:** Interfaz gráfica de usuario para la interacción humana.
+* **Persistencia:** Capa de datos configurada mediante `persistence.xml`.
 
-* **Lenguaje:** Java 23.
-* **GUI Framework:** Swing (Java Foundation Classes).
-* **Gestor de Dependencias:** Maven.
-* **Persistencia (Preparado):** JPA / Hibernate con MySQL.
 
-## 📋 Estructura del Proyecto
 
-El código se organiza bajo el paquete `Logica` para el motor del sistema y `IGU` para la visualización:
+## 🛠️ Desafíos Resueltos
+* **Validación de Peso:** Se implementó una lógica en la clase `Ubicacion` para evitar el sobrealmacenamiento, asegurando que `pesoActual + pesoProducto <= capacidadMaxima`.
+* **Trazabilidad:** Sistema de estados para órdenes que permite seguir el flujo logístico desde la creación hasta el cierre.
 
-* `SistemaWMS.java`: El controlador central que gestiona las listas de productos, ubicaciones y órdenes.
-* `Ubicacion.java`: Gestiona la capacidad de carga y el mapa de stock (`HashMap`) de cada punto del almacén.
-* `Orden.java`: Lógica de validación para los movimientos de mercancía.
-
-## 🚀 Instalación y Ejecución
-
-1.  **Clonar el repositorio:**
-    ```bash
-    git clone [https://github.com/tu-usuario/integrador-wms.git](https://github.com/tu-usuario/integrador-wms.git)
-    ```
-2.  **Abrir en tu IDE preferido:** (Recomendado NetBeans o IntelliJ IDEA).
-3.  **Ejecutar la clase principal:**
-    Localiza `Logica.IntegradorFinal` y ejecuta el método `main` para iniciar la interfaz.
-
-## 📸 Vista Previa
-El sistema cuenta con un **Menú Principal** que permite navegar entre las funciones de Stock, Generación de Órdenes y configuración de nuevas entidades en el almacén.
-
----
-Desarrollado por Nico Romero como proyecto integrador de gestión logística.
+## 🗺️ Roadmap de Evolución
+- [ ] **Migración a Spring Boot:** Transformar el core en una API REST escalable.
+- [ ] **Dockerización:** Contenedores para despliegue rápido.
+- [ ] **Dashboard de Analíticas:** Gráficos en tiempo real de ocupación del almacén.
