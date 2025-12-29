@@ -1,8 +1,8 @@
 # Scalable WMS Core - Sistema de Gestión de Almacenes
 
+![Java CI](https://github.com/nicorromero/integrador-WMS/actions/workflows/ci.yml/badge.svg)
 [![Java Version](https://img.shields.io/badge/Java-17%2B-orange.svg)](https://www.oracle.com/java/)
 [![Maven](https://img.shields.io/badge/Maven-3.8.1-blue.svg)](https://maven.apache.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 Este proyecto es un núcleo de **Warehouse Management System (WMS)** diseñado para optimizar el flujo de inventario, la gestión de ubicaciones jerárquicas y el procesamiento de órdenes de entrada y salida.
 
@@ -18,13 +18,14 @@ El sistema sigue una arquitectura orientada a objetos con separación de respons
 * **IGU:** Interfaz gráfica de usuario para la interacción humana.
 * **Persistencia:** Capa de datos configurada mediante `persistence.xml`.
 
-
-
 ## 🛠️ Desafíos Resueltos
-* **Validación de Peso:** Se implementó una lógica en la clase `Ubicacion` para evitar el sobrealmacenamiento, asegurando que `pesoActual + pesoProducto <= capacidadMaxima`.
+* **Validación de Peso:** Se implementó una lógica en la clase `Ubicacion` para evitar el sobrealmacenamiento, asegurando que el stock actual nunca supere la capacidad máxima definida.
 * **Trazabilidad:** Sistema de estados para órdenes que permite seguir el flujo logístico desde la creación hasta el cierre.
 
 ## 🗺️ Roadmap de Evolución
 - [ ] **Migración a Spring Boot:** Transformar el core en una API REST escalable.
-- [ ] **Dockerización:** Contenedores para despliegue rápido.
-- [ ] **Dashboard de Analíticas:** Gráficos en tiempo real de ocupación del almacén.
+- [ ] **Dockerización:** Creación de imágenes para despliegue en contenedores.
+- [ ] **Dashboard de Analíticas:** Visualización de KPIs de ocupación y movimiento.
+
+---
+Desarrollado por [Nico Romero](https://github.com/nicorromero)
