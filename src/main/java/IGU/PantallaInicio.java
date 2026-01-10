@@ -851,7 +851,11 @@ public class PantallaInicio extends javax.swing.JFrame {
                     descripcion, 
                     unidadMedida, 
                     pesoPorUnidad
-            );            
+            );     
+            txtDescripcion.setText("");
+            txtPesoUnidad.setText("");
+            txtUnidadMedida.setText("");
+            
             JOptionPane.showMessageDialog(this, "Producto creado exitosamente:  " + producto.getDescripcion() );
         
         }catch (IllegalArgumentException e) {
