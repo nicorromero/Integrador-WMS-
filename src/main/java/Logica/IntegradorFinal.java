@@ -5,6 +5,7 @@
 package Logica;
 
 import IGU.PantallaInicio;
+import Persistencia.ControladoraPersistencia;
 
 
 /**
@@ -15,6 +16,9 @@ public class IntegradorFinal {
 
     public static void main(String[] args) {
         
+        ControladoraPersistencia controladora = new ControladoraPersistencia();
+        
+        
         // 1. Inicializar el Sistema WMS (El controlador de la logica)
         SistemaWMS sistema = new SistemaWMS();
         System.out.println("Sistema WMS Inicializado.");
@@ -24,5 +28,6 @@ public class IntegradorFinal {
         pantalla.pack(); // Asegura que la ventana tenga el tamaño correcto antes de moverse
         pantalla.setLocationRelativeTo(null); // PRIMERO la centras (mientras es invisible)
         pantalla.setVisible(true);            // LUEGO la muestras (ya centrada)
+        
     }
 }

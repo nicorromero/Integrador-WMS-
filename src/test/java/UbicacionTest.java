@@ -7,8 +7,11 @@
  *
  * @author nicor
  */
-package Logica;
 
+
+
+import Logica.Producto;
+import Logica.Ubicacion;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,6 +33,6 @@ public class UbicacionTest {
         // Esto confirma que nuestra lógica de validación tiene sentido
         assertTrue(productoPesado.getPesoPorUnidad()> estanteria.getCAPACIDAD_MAXIMA_KG(),
                 
-                "Error: El producto debería ser identificado como más pesado que la capacidad");
+            "Error: El producto debería ser identificado como más pesado que la capacidad");
     }
 }

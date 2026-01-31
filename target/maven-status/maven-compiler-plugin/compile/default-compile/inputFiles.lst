@@ -1,8 +1,15 @@
 C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Logica\Orden.java
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Persistencia\exceptions\PreexistingEntityException.java
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Persistencia\exceptions\NonexistentEntityException.java
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Logica\Ubicacion.java
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Persistencia\ProductoJpaController.java
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Persistencia\ControladoraPersistencia.java
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\IGU\PantallaInicio.java
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Persistencia\exceptions\IllegalOrphanException.java
 C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Logica\IntegradorFinal.java
 C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Logica\Producto.java
-C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Logica\Ubicacion.java
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Persistencia\UbicacionJpaController.java
+C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Persistencia\OrdenJpaController.java
 C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Logica\TipoOrden.java
-C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\IGU\PantallaInicio.java
 C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Logica\TipoZona.java
 C:\Users\nicor\OneDrive\Escritorio\Documentos\NetBeansProjects\IntegradorFinal\src\main\java\Logica\SistemaWMS.java

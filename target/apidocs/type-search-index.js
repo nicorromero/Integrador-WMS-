@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"Logica","l":"IntegradorFinal"},{"p":"Logica","l":"Orden"},{"p":"IGU","l":"PantallaInicio"},{"p":"Logica","l":"Producto"},{"p":"Logica","l":"SistemaWMS"},{"p":"Logica","l":"TipoOrden"},{"p":"Logica","l":"TipoZona"},{"p":"Logica","l":"Ubicacion"}];updateSearchResults();
