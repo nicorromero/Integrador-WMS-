@@ -5,94 +5,35 @@
 
 package Logica;
 
-import java.util.ArrayList;
-import java.util.List;
+import Persistencia.ControladoraPersistencia;
 
-/**
- *
- * @author nicor
- */
 public class SistemaWMS {
     
-    public SistemaWMS() 
-    {
-        this.inicializarDatosDePrueba(); 
-    }
+    ControladoraPersistencia controladora = new ControladoraPersistencia();  
     
-    //metodo privado, y no punlico recomendado por la ia 
-    private void inicializarDatosDePrueba() {
-        // 1. Crear Ubicaciones
-        // ID 1: Ubicación con stock
-        Ubicacion u1 = new Ubicacion("Nave A", TipoZona.ALMACENAMIENTO, "E01", "N01");
-        ubicaciones.add(u1);
+    //metodo listo
+    public Producto buscarProductoPorDescripcion(String txtProducto) {
+        // 1. Buscamos el ID asociado a ese nombre
+        Integer idEncontrado = controladora.obtenerIdProducto(txtProducto.trim());
         
-        // ID 2: Ubicación vacía (para probar movimientos o errores)
-        Ubicacion u2 = new Ubicacion("Nave B", TipoZona.ALMACENAMIENTO, "E02", "N01");
-        ubicaciones.add(u2);
-        
-        
-        // 2. Crear Productos
-        // ID 1: Producto corregido
-        Producto p1 = new Producto("Zapatillas Nike", "Par", 0.8); // 0.8 kg por par
-        productos.add(p1);
-        
-        // ID 2: Otro producto
-        Producto p2 = new Producto("Casco Seguridad", "Unidad", 0.5);
-        productos.add(p2);
-
-
-        // 3. CARGAR STOCK INICIAL AUTOMÁTICO
-        // Esto es clave: Cargamos 100 pares de zapatillas en la ubicación u1 (ID 1).
-        // Ahora puedes abrir el programa y probar un EGRESO de "Zapatillas Nike" desde la ubicación 1 directamente.
-        u1.agregarStock(p1, 100); 
-        
-        // También cargamos 10 cascos en la ubicación u1
-        u1.agregarStock(p2, 10);
-    }
-    
-    
-    //de aca salen registros de Stock
-    private final List<Producto> productos = new ArrayList<>();
-    private final List<Ubicacion> ubicaciones = new ArrayList<>();
-    private final List<Orden> Ordenes = new ArrayList<>();
-    
-    public List<Producto> getProductos() {
-        return productos;
-    }
-    public List<Ubicacion> getUbicaciones() {
-        return ubicaciones;
-    }
-    public List<Orden> getOrdenes() {
-        return Ordenes;
-    }
-
-
-    
-
-
-    //Para leer los txt del frame y tranformar a objeto
-    
-    public Producto buscarProductoPorDescripcion(String txtProducto){
-        for (Producto p : productos){
-            if(p.getDescripcion().equalsIgnoreCase(txtProducto.trim()))
-            {
-                return p;
-            }
+        // 2. Si lo encontramos, usamos el método de buscar por ID que tanto te gusta
+        if (idEncontrado != null) {
+            return controladora.buscarProductoPorId(idEncontrado);
         }
-                return null;
-    }
-    
-    public Ubicacion buscarUbicacionPorCodigo(int codigo){
         
-        for (Ubicacion u : ubicaciones){
-            if(u.getCodigoUnico() == codigo)
-            {
-                return u;
-            }
-        }
-            return null;
+        return null; // Si no hubo ID, el producto no existe
+    }
+    //metodo listo
+    public Ubicacion buscarUbicacionPorCodigo(int codigo){       
+        if (codigo <= 0) {
+            return null; 
+        }     
+        return controladora.buscarUbicacionPorId(codigo);
     }
     
+    
+    
+    //FALTA ARREGLAR
     public TipoOrden buscarTipoOrden (String descripcionOrden){
         for (TipoOrden orden : TipoOrden.values()) 
         {
@@ -103,7 +44,7 @@ public class SistemaWMS {
         }
             return null;
     }
-        
+    //FALTA ARREGLAR   
     public TipoZona buscarTipoZona (String descripcionZona){
         for (TipoZona zona : TipoZona.values()) 
         {
@@ -114,11 +55,8 @@ public class SistemaWMS {
         }   
             return null;   
     }
-  
     
-    
-    //metodos que maneja el lado cliente
-  
+    //metodo listo
     public Producto crearNuevoProducto( String descripcion, String unidadMedida, double pesoPorUnidad) {
        // 2. Llamar al constructor de la Orden
        
@@ -130,7 +68,7 @@ public class SistemaWMS {
                 pesoPorUnidad
             );
             
-            productos.add(nuevoProducto);   
+            controladora.crearProducto(nuevoProducto);
             return nuevoProducto;    
         } 
         catch (IllegalArgumentException e) { 
@@ -138,7 +76,7 @@ public class SistemaWMS {
             throw e; 
         }            
     }
-        
+    //metodo listo    
     public Ubicacion crearNuevaUbicacion( String nave, String zona, String estanteria, String nivel) {
         // generador automatico de id para orden  
         TipoZona tipoEncontradoZona = buscarTipoZona(zona);
@@ -156,14 +94,14 @@ public class SistemaWMS {
                 nivel
                 );
                 
-                ubicaciones.add(nuevoUbicacion);
+                controladora.crearUbicacion(nuevoUbicacion);
                 return nuevoUbicacion;
         } 
         catch (IllegalArgumentException e) { //como el else, se activa en false
             throw e; //muestra del error, podria dejar mensaje
         }
     }
-    
+    //metodo listo
     public Orden crearNuevaOrden(String descripcionProducto, int cantidad, String usuario, int uOrigen, String tipoOrden, int uDestino) {
         
         Ubicacion ubicacionDestino = null; // Inicializada a null por defecto
@@ -215,7 +153,7 @@ public class SistemaWMS {
                     tipoEncontrado, 
                     ubicacionDestino 
                 );  
-                Ordenes.add(nuevaOrden);
+                controladora.crearOrden(nuevaOrden);
                 return nuevaOrden;    
             } 
             catch (IllegalArgumentException e) {   
@@ -223,14 +161,14 @@ public class SistemaWMS {
             }            
     }
     
-    
+    //FALTA ARREGLAR
     public String consultarUbicacionStock(int ubicacion){
         
         Ubicacion ubicacionStock = buscarUbicacionPorCodigo(ubicacion);
                
         return ubicacionStock.obtenerDetalleStock();
     }
-    
+    //FALTA ARREGLAR
     public String consultarProductoStock(String producto){
         Producto productoStock = buscarProductoPorDescripcion(producto);
         
