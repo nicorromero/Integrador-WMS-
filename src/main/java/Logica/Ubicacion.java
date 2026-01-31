@@ -52,8 +52,7 @@ public class Ubicacion implements Serializable {
         this.stockPorProducto = new HashMap<>();
     }
     
-    public Ubicacion() {
-    }
+    public Ubicacion() {}
 
     
     //Getters:
@@ -96,90 +95,63 @@ public class Ubicacion implements Serializable {
     
     
     //metodos:
+    
     public void agregarStock(Producto producto, int cantidad) {
+        
         double pesoAAgregar = producto.getPesoPorUnidad() * cantidad;
+
         if (pesoActualKg + pesoAAgregar > CAPACIDAD_MAXIMA_KG) {
             throw new IllegalArgumentException("Error: Capacidad máxima de la ubicación excedida.");
-        }
-        else 
-        {// Se usa getOrDefault para sumar la nueva cantidad al stock existente. Si el producto no existía, empieza en 0.
-           //lo quiero cambiar, si no existe el producto tambien hay que agregar la ubicacion a ubicaciones en ese producto 
-                
-                //int stockActual= stockPorProducto.getOrDefault(producto, 0) + cantidad;
-                //stockPorProducto.put(producto, stockActual);
-                
-                // Opción más limpia y recomendada si el stock es un Map<Producto, Integer>
-                stockPorProducto.merge(producto, cantidad, Integer::sum);
-                
-                this.pesoActualKg += pesoAAgregar;
-            
-      
-        } 
+        }      
+        
+        stockPorProducto.merge(producto, cantidad, Integer::sum);
+        
+        this.pesoActualKg += pesoAAgregar;  
     }
     
     public void quitarStock(Producto producto, int cantidad) {
-        //                      1                   "or"                    2                       1-verifica que exista el producto en la ubicacion
+        //                      1                  "or"                    2                       1-verifica que exista el producto en la ubicacion
         if (!stockPorProducto.containsKey(producto) || stockPorProducto.get(producto) < cantidad) //2-verifica que alla la suficente cantidad de unidades del producto
         {
             throw new IllegalArgumentException("Error: Stock insuficiente del producto " + producto.getDescripcion() + " en la ubicación.");
         }
-        else
-        {
-            double pesoAQuitar = producto.getPesoPorUnidad() * cantidad;
-            stockPorProducto.put(producto, stockPorProducto.get(producto) - cantidad); //actualiza el value, la cantidad,  del hashmap
-          
-            this.pesoActualKg -= pesoAQuitar;
-            System.out.println("INFO: Stock retirado de " + this.getIdentificador() + ". Peso actual: " + this.pesoActualKg + " kg.");
         
-        }
+        stockPorProducto.put(producto, stockPorProducto.get(producto) - cantidad); //actualiza el value, la cantidad,  del hashmap
+       
+        double pesoAQuitar = producto.getPesoPorUnidad() * cantidad;
+        this.pesoActualKg -= pesoAQuitar;  
     }     
     
-    //metodo para contar el stock de un producto en una ubicacio
-    //este cpz no se usa
+    //stock total de un ubicacion solo de un producto 
      public int StockporProducto(Producto producto) {
         
         int stock = stockPorProducto.getOrDefault(producto, 0);
         
         return stock;
     }
+    
      
-    //metodo para ver los productos y cantidades de una ubicacion
-     //por consola sirve parta testear
-     public void mostrarStockUbicacion() {
-        if (!stockPorProducto.isEmpty()) {
-            for (Map.Entry<Producto, Integer> entry : stockPorProducto.entrySet()) {
-                System.out.println("   - Producto: " + entry.getKey().getDescripcion() + " | Cantidad: " + entry.getValue());
-            }
-        } else {
-            System.out.println("Ubicación vacía ");
-            
-        }
-    }
-     
-     // En Logica/Ubicacion.java
-
-    // Cambiamos void por String para que devuelva el texto
     public String obtenerDetalleStock() {
-    // Si el mapa está vacío, devolvemos un mensaje simple
-    if (stockPorProducto.isEmpty()) {
-        return "La ubicación está vacía.";
-    }
+        
+        if (stockPorProducto.isEmpty()) {
+            return "La ubicación está vacía.";
+        }
     
-    // StringBuilder es eficiente para unir muchas líneas de texto
-    StringBuilder reporte = new StringBuilder();
+        // StringBuilder es una clase como String Sirve para mandar textos largos y poder usar el for
+        StringBuilder reporte = new StringBuilder();
     
-    reporte.append("Stock en Ubicación (").append(this.getIdentificador()).append("):\n");
+        reporte.append("Stock en Ubicación (").append(this.getIdentificador()).append("):\n");
     
-    for (Map.Entry<Producto, Integer> entry : stockPorProducto.entrySet()) {
-        reporte.append(" - ")
-               .append(entry.getKey().getDescripcion())
-               .append(": ")
-               .append(entry.getValue())
-               .append(" unidades\n"); // \n hace un salto de línea
-    }
+            for (Map.Entry<Producto, Integer> entry : stockPorProducto.entrySet()) {
+                reporte.append(" - ")
+                    .append(entry.getKey().getDescripcion())  //nombre producto
+                    .append(": ") 
+                    .append(entry.getValue()) //cantidad
+                    .append(" unidades\n"); // \n hace un salto de línea
+            }
     
-    reporte.append("Peso actual: ").append(this.pesoActualKg).append(" Kg");
+        reporte.append("Peso actual: ").append(this.pesoActualKg).append(" Kg");
     
-    return reporte.toString(); // Devolvemos todo el texto junto
+        return reporte.toString(); //reporte es la instancia de StringBuilder  
     }
 }

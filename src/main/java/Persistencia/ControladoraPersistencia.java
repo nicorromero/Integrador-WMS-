@@ -7,6 +7,7 @@ package Persistencia;
 import Logica.Orden;
 import Logica.Producto;
 import Logica.Ubicacion;
+import java.util.List;
 /**
  *
  * @author nicor
@@ -39,6 +40,10 @@ public class ControladoraPersistencia {
     
     public Ubicacion buscarUbicacionPorId(int id) {
         return ubicacionJpa.findUbicacion(id); 
+    }
+    
+    public List<Ubicacion> traerTodasLasUbicaciones() {
+    return ubicacionJpa.findUbicacionEntities();
     }
     
 

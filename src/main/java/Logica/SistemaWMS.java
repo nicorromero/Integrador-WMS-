@@ -6,12 +6,12 @@
 package Logica;
 
 import Persistencia.ControladoraPersistencia;
+import java.util.List;
 
 public class SistemaWMS {
     
-    ControladoraPersistencia controladora = new ControladoraPersistencia();  
+    ControladoraPersistencia controladora = new ControladoraPersistencia();    
     
-    //metodo listo
     public Producto buscarProductoPorDescripcion(String txtProducto) {
         // 1. Buscamos el ID asociado a ese nombre
         Integer idEncontrado = controladora.obtenerIdProducto(txtProducto.trim());
@@ -23,40 +23,43 @@ public class SistemaWMS {
         
         return null; // Si no hubo ID, el producto no existe
     }
-    //metodo listo
+ 
     public Ubicacion buscarUbicacionPorCodigo(int codigo){       
         if (codigo <= 0) {
             return null; 
         }     
         return controladora.buscarUbicacionPorId(codigo);
     }
-    
-    
-    
-    //FALTA ARREGLAR
+   
     public TipoOrden buscarTipoOrden (String descripcionOrden){
-        for (TipoOrden orden : TipoOrden.values()) 
-        {
-            if(orden.getDescripcion().equalsIgnoreCase(descripcionOrden))
-            {
-                return orden;
-            }
-        }
+        //validacion
+        if (descripcionOrden == null || descripcionOrden.trim().isEmpty()) {
             return null;
+        }
+        
+        for (TipoOrden orden : TipoOrden.values()) {
+          
+            if ( orden.getDescripcion().equalsIgnoreCase(descripcionOrden.trim()) || orden.name().equalsIgnoreCase(descripcionOrden)) {
+                return orden;
+            }    
+        }
+        return null;
     }
-    //FALTA ARREGLAR   
+    
     public TipoZona buscarTipoZona (String descripcionZona){
+        if (descripcionZona == null || descripcionZona.trim().isEmpty()) {
+            return null;
+        }
         for (TipoZona zona : TipoZona.values()) 
         {
-            if(zona.getDescripcion().equalsIgnoreCase(descripcionZona)|| zona.name().equalsIgnoreCase(descripcionZona))
-            {
+            if(zona.getDescripcion().equalsIgnoreCase(descripcionZona.trim())|| zona.name().equalsIgnoreCase(descripcionZona)) {
                 return zona;
             }
         }   
-            return null;   
+        return null;   
     }
     
-    //metodo listo
+    
     public Producto crearNuevoProducto( String descripcion, String unidadMedida, double pesoPorUnidad) {
        // 2. Llamar al constructor de la Orden
        
@@ -76,7 +79,8 @@ public class SistemaWMS {
             throw e; 
         }            
     }
-    //metodo listo    
+
+    
     public Ubicacion crearNuevaUbicacion( String nave, String zona, String estanteria, String nivel) {
         // generador automatico de id para orden  
         TipoZona tipoEncontradoZona = buscarTipoZona(zona);
@@ -101,8 +105,9 @@ public class SistemaWMS {
             throw e; //muestra del error, podria dejar mensaje
         }
     }
-    //metodo listo
-    public Orden crearNuevaOrden(String descripcionProducto, int cantidad, String usuario, int uOrigen, String tipoOrden, int uDestino) {
+    
+    
+    public Orden crearNuevaOrden(String descripcionProducto, int cantidad, String usuario, int uOrigen, String tipoOrden, int uDestino){
         
         Ubicacion ubicacionDestino = null; // Inicializada a null por defecto
                                            //marca rojo el null por parecer rebundante pero NO lo es
@@ -144,7 +149,7 @@ public class SistemaWMS {
             throw new IllegalArgumentException("El origen y el destino no pueden ser la misma ubicación para una transferencia interna.");
             }
         }          
-            try {  //como un if que siempre da true 
+            try {  
                 Orden nuevaOrden = new Orden(
                     usuario, 
                     productoEncontrado, 
@@ -161,14 +166,17 @@ public class SistemaWMS {
             }            
     }
     
-    //FALTA ARREGLAR
     public String consultarUbicacionStock(int ubicacion){
         
         Ubicacion ubicacionStock = buscarUbicacionPorCodigo(ubicacion);
+        
+        if (ubicacionStock == null) {
+        return "Error: La ubicación con código " + ubicacion + " no existe en el sistema.";
+        }
                
         return ubicacionStock.obtenerDetalleStock();
     }
-    //FALTA ARREGLAR
+    
     public String consultarProductoStock(String producto){
         Producto productoStock = buscarProductoPorDescripcion(producto);
         
@@ -177,6 +185,8 @@ public class SistemaWMS {
         }
         
         int stockTotal= 0;
+        
+        List<Ubicacion> ubicaciones = controladora.traerTodasLasUbicaciones();
         
         for(Ubicacion u : ubicaciones){
             
