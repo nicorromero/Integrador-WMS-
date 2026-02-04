@@ -46,6 +46,14 @@ public class ControladoraPersistencia {
     return ubicacionJpa.findUbicacionEntities();
     }
     
+    public void editarUbicacion(Ubicacion ubicacion) {
+        try {
+            ubicacionJpa.edit(ubicacion);
+        } 
+        catch (Exception e) {
+        e.printStackTrace();
+        }
+    }
 
     //METODOS DE ORDEN
     public void crearOrden (Orden orden){

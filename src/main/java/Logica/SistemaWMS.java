@@ -159,6 +159,11 @@ public class SistemaWMS {
                     ubicacionDestino 
                 );  
                 controladora.crearOrden(nuevaOrden);
+                
+                if (ubicacionDestino != null) {
+                    controladora.editarUbicacion(ubicacionDestino);
+                }
+                
                 return nuevaOrden;    
             } 
             catch (IllegalArgumentException e) {   
@@ -195,4 +200,6 @@ public class SistemaWMS {
         return "Stock total de: " + productoStock.getDescripcion() +" = "+ stockTotal;
         
     }
+    
+    
 }

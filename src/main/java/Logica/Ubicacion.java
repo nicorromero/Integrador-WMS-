@@ -10,6 +10,7 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,7 +35,7 @@ public class Ubicacion implements Serializable {
     private String estanteria;
     private String nivel;
     private double pesoActualKg;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "stock_ubicacion", joinColumns = @JoinColumn(name = "ubicacion_id"))
     @MapKeyJoinColumn(name = "producto_id")
     @Column(name = "cantidad")
@@ -154,4 +155,6 @@ public class Ubicacion implements Serializable {
     
         return reporte.toString(); //reporte es la instancia de StringBuilder  
     }
+    
+    
 }
